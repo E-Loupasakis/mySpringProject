@@ -1,4 +1,4 @@
-package com.example.acceptedrest.Enum;
+package com.example.acceptedrest.enums;
 
 public enum HttpMethod {
     GET, POST, PUT, DELETE, PATCH, HEAD
