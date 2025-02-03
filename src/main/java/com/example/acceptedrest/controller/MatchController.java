@@ -1,11 +1,10 @@
 package com.example.acceptedrest.controller;
 
-import com.example.acceptedrest.entities.Match;
+import com.example.acceptedrest.dto.MatchDTO;
 import com.example.acceptedrest.service.MatchService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,9 +18,15 @@ public class MatchController {
     }
 
     @GetMapping("/byHome/{homeTeam}")
-    public List<Match> findByHomeTeam(@PathVariable String homeTeam) {
-        return matchService.findByHomeTeam(homeTeam);
+    public ResponseEntity<List<MatchDTO>> findByHomeTeam(@PathVariable String homeTeam) {
+        return ResponseEntity.ok(matchService.findByHomeTeam(homeTeam));
     }
 
-    @GetMapping("/save/{match}")
+    @PostMapping(path = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> saveUser(@RequestBody MatchDTO matchDto) {
+        matchService.save(matchDto);
+        return ResponseEntity.ok("Match created successfully");
+    }
+
+    //add multiple input at once
 }
