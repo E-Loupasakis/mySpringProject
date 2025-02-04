@@ -3,13 +3,13 @@ package com.example.acceptedrest.entities;
 import com.example.acceptedrest.enums.Sport;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 @Entity
 @Table(name = "matches")
 public class Match {
-//    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,7 +17,7 @@ public class Match {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false) // Name field cannot be null
+    @Column(nullable = false)
     private String homeTeam;
 
     @Column(nullable = false)
@@ -27,20 +27,19 @@ public class Match {
     @Column(nullable = false)
     private Sport sport;
 
-//    @Column(nullable = false)
-//    private LocalDate matchDate;
-//
-//    @Column(nullable = false)
-//    private LocalTime matchTime;
+    @Column(nullable = false)
+    private LocalDate matchDate;
 
-//    public Match(String description, String homeTeam, String awayTeam, Sport sport, LocalDate matchDate, LocalTime matchTime) {
-    public Match(String description, String homeTeam, String awayTeam, Sport sport) {
+    @Column(nullable = false)
+    private LocalTime matchTime;
+
+    public Match(String description, String homeTeam, String awayTeam, Sport sport, LocalDate matchDate, LocalTime matchTime) {
         this.description = description;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.sport = sport;
-//        this.matchDate = matchDate;
-//        this.matchTime = matchTime;
+        this.matchDate = matchDate;
+        this.matchTime = matchTime;
     }
 
     public Match() {}
@@ -83,5 +82,21 @@ public class Match {
 
     public void setSport(Sport sport) {
         this.sport = sport;
+    }
+
+    public LocalDate getMatchDate() {
+        return matchDate;
+    }
+
+    public void setMatchDate(LocalDate matchDate) {
+        this.matchDate = matchDate;
+    }
+
+    public LocalTime getMatchTime() {
+        return matchTime;
+    }
+
+    public void setMatchTime(LocalTime matchTime) {
+        this.matchTime = matchTime;
     }
 }

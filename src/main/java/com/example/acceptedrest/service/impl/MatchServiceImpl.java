@@ -4,13 +4,10 @@ import com.example.acceptedrest.dto.MatchDTO;
 import com.example.acceptedrest.entities.Match;
 import com.example.acceptedrest.repository.MatchRepository;
 import com.example.acceptedrest.service.MatchService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MatchServiceImpl implements MatchService {
@@ -32,7 +29,6 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public void save(MatchDTO matchDto) {
-        //WIP add code to ignore case for enum
         Match match = modelMapper.map(matchDto, Match.class);
         matchRepository.save(match);
     }

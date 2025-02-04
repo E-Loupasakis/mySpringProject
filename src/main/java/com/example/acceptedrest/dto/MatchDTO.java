@@ -16,4 +16,6 @@ public class MatchDTO {
     private String homeTeam;
     private String awayTeam;
     private Sport sport;
+    private String matchDate;
+    private String matchTime;
 }
