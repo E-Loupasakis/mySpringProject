@@ -23,7 +23,9 @@ public class MatchController {
     }
 
     @PostMapping(path = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> saveUser(@RequestBody MatchDTO matchDto) {
+    public ResponseEntity<String> saveMatch(@RequestBody MatchDTO matchDto) {
+        System.out.println("Received MatchDTO:"+ matchDto.toString());
+        System.out.println("MatchOdds in DTO: "+ matchDto.getMatchOddsDTO());
         matchService.save(matchDto);
         return ResponseEntity.ok("Match created successfully");
     }

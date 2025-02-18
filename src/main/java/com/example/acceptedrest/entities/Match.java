@@ -2,9 +2,12 @@ package com.example.acceptedrest.entities;
 
 import com.example.acceptedrest.enums.Sport;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.config.YamlProcessor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -32,6 +35,9 @@ public class Match {
 
     @Column(nullable = false)
     private LocalTime matchTime;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "match", orphanRemoval = true)
+    private List<MatchOdd> matchOdds = new ArrayList<>();
 
     public Match(String description, String homeTeam, String awayTeam, Sport sport, LocalDate matchDate, LocalTime matchTime) {
         this.description = description;
@@ -90,6 +96,14 @@ public class Match {
 
     public void setMatchDate(LocalDate matchDate) {
         this.matchDate = matchDate;
+    }
+
+    public List<MatchOdd> getMatchOdds() {
+        return matchOdds;
+    }
+
+    public void setMatchOdds(List<MatchOdd> matchOdds) {
+        this.matchOdds = matchOdds;
     }
 
     public LocalTime getMatchTime() {

@@ -2,11 +2,14 @@ package com.example.acceptedrest.service.impl;
 
 import com.example.acceptedrest.dto.MatchDTO;
 import com.example.acceptedrest.entities.Match;
+import com.example.acceptedrest.entities.MatchOdd;
 import com.example.acceptedrest.repository.MatchRepository;
 import com.example.acceptedrest.service.MatchService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +33,17 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public void save(MatchDTO matchDto) {
         Match match = modelMapper.map(matchDto, Match.class);
+        List<MatchOdd> matchOdds = matchDto.getMatchOddsDTO()
+                        .stream()
+                        .map(odt -> {
+                            MatchOdd matchOdd = new MatchOdd();
+                            matchOdd.setSpecifier(odt.getSpecifier());
+                            matchOdd.setOdd(odt.getOdd());
+                            matchOdd.setMatch(match);
+                            return matchOdd;
+                        })
+                        .toList();
+        match.setMatchOdds(matchOdds);
         matchRepository.save(match);
     }
 }
